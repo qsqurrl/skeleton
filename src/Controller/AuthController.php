@@ -11,7 +11,7 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
-class Auth
+class AuthController
 {
     private $session;
 

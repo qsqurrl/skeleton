@@ -8,8 +8,8 @@ contacts:
 
 login:
     path: /login/
-    controller: App\Controller\Auth::login
+    controller: App\Controller\AuthController::login
 
 logout:
     path: /logout/
-    controller: App\Controller\Auth::logout
+    controller: App\Controller\AuthController::logout
