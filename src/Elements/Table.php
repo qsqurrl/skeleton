@@ -11,20 +11,28 @@ namespace App\Elements;
 
 class Table
 {
-    private $headers;
+    private $tableOpen;
+    private $tableClose;
+    private $header;
     private $rows;
+
+    public function __construct()
+    {
+        $this->tableOpen = "<table>";
+        $this->tableClose = "</table>";
+    }
 
     public function addHeaders($data)
     {
         foreach ($data as $item)
         {
-            $this->headers[] = $item;
+            $this->header[] = $item;
         }
     }
 
     public function addHeader($item)
     {
-        $this->headers[] = $item;
+        $this->header[] = $item;
     }
 
     public function addRows($data)
@@ -42,12 +50,12 @@ class Table
 
     public function getHTML()
     {
-        $html = '<table>';
+        $html .= $this->tableOpen;
 
-        if ($this->headers !== NULL)
+        if ($this->header !== NULL)
         {
             $html .= '<tr>';
-            foreach ($this->headers as $item)
+            foreach ($this->header as $item)
             {
                 $html .= '<th>'.$item.'</th>';
             }
@@ -68,7 +76,7 @@ class Table
             $html .= '</tr>';
         }
 
-        $html .= '</table>';
+        $html .= $this->tableClose;
         return $html;
     }
 }
