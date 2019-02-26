@@ -15,7 +15,7 @@ class Form
 
     public function __construct($items, $action, $newline)
     {
-        $this->html = "<form " . (is_null($action) ? "": "action='" . $action . "'") . "><br />";
+        $this->html = "<form " . (is_null($action) ? '': "action='" . $action . "'") . "><br />";
 
         foreach ($items as $item)
         {

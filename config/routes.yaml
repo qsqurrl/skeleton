@@ -5,3 +5,11 @@ home:
 contacts:
     path: /contacts/
     controller: App\Controller\ContactsController::index
+
+login:
+    path: /login/
+    controller: App\Controller\Auth::login
+
+logout:
+    path: /logout/
+    controller: App\Controller\Auth::logout
