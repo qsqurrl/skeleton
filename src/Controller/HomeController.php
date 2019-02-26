@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Utils\Layout;
 use App\Elements\Table;
 
@@ -18,13 +19,7 @@ class HomeController extends AbstractController
     private $content;
     private $layout;
     private $table;
-    /*
-     * private $layout = array(
-        'left' => array('width' => 3),
-        'center' => array('width' => 6),
-        'right' => array('width' => 3)
-    );
-    */
+
 
     public function index()
     {
