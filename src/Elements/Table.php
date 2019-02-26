@@ -50,7 +50,7 @@ class Table
 
     public function getHTML()
     {
-        $html .= $this->tableOpen;
+        $html = $this->tableOpen;
 
         if ($this->header !== NULL)
         {
