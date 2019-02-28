@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{{ content.pagetitle|default(app.request.get('_route')) }}{% endblock %}</title>
+    <title>{% block title %}{{ layout.page_title|default(app.request.get('_route')) }}{% endblock %}</title>
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('build/app.css') }}" />
     {% endblock %}

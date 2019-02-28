@@ -10,7 +10,7 @@ namespace App\Controller;
 
 
 use App\Entity\Page;
-use App\Utils\Layout;
+use App\Service\Layout;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -24,6 +24,7 @@ class PageController extends AbstractController
     {
         $layout = new Layout();
 
+        $layout->page_title = $page->getPageTitle();
         $layout->addChildRow(['name' => 'top']);
         $layout->addChildColumn(['name' => 'leftcolumn', 'parent' => 'top', 'width' => '1']);
         $layout->addChildColumn(['name' => 'centercolumn', 'title' => $page->getTitle(), 'parent' => 'top', 'width' => '8', 'html' => $page->getContent()]);

@@ -9,8 +9,8 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use App\Utils\Layout;
+//use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Service\Layout;
 use App\Elements\Table;
 
 class HomeController extends AbstractController

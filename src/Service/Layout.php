@@ -6,16 +6,18 @@
  * Time: 6:12 PM
  */
 
-namespace App\Utils;
+namespace App\Service;
 
 
 class Layout
 {
     public $rows;
     public $columns;
+    public $page_title;
 
     public function __construct()
     {
+        $this->page_title = '';
     }
 
     /*
