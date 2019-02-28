@@ -15,7 +15,7 @@ use App\Elements\Table;
 
 class HomeController extends AbstractController
 {
-    private $title = "Homepage";
+    private $title = "Homepag46457567e";
     private $content;
     private $layout;
     private $table;
