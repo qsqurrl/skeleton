@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <ul class="nav navbar-nav">
             <li class="{{ app.request.get('_route') == 'home' ? 'active' }}"><a href="{{ path('home') }}">Home</a></li>
-            <li class="{{ app.request.get('_route') == 'contacts' ? 'active' }}"><a href="{{ path('contacts') }}">Contacts</a></li>
+            <li class="{{ app.request.get('_route') == 'page_show' ? 'active' }}"><a href="{{ path('page_show',{'route' : 'contacts'}) }}">Contacts</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="/"><span class="glyphicon glyphicon-user"></span>{{ displayname|upper }}</a></li>
