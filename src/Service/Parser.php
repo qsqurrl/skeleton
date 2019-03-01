@@ -8,11 +8,11 @@
 
 namespace App\Service;
 
+use App\Elements\Table;
+
 
 class Parser
 {
-    private $openTag = '{!';
-    private $closeTag = '!}';
     private $functions;
     private $openElements;
     private $closeElements;
@@ -30,20 +30,23 @@ class Parser
         );
 
         $this->openElements = array(
-            'table' => 'starttable'
+            'table' => '{!starttable!}'
         );
 
         $this->closeElements = array(
-            'table' => 'endtable'
+            'table' => '{!endtable!}'
         );
 
         foreach ($this->openElements as $type => $element)
         {
-            if ($i = strpos($data, $this->openTag.$element.$this->closeTag,$curPos))
+            if ($i = strpos($data, $element, $curPos))
             {
-                if ($x = strpos($data,$this->openTag.$this->closeElements[$type].$this->closeTag))
+                if ($x = strpos($data, $this->closeElements[$type], $i))
                 {
-                    call_user_func($this->functions[$type], substr($data,($i - 2), ($x +7)),($i - 2), ($x + 7));
+                    $olen = strlen($element);
+                    $clen = strlen($this->closeElements[$type]);
+
+                    call_user_func($this->functions[$type], substr($data,$i, $x),$i, $x, $olen, $clen );
                     $curPos = $x;
                 }
             }
@@ -55,25 +58,26 @@ class Parser
         return $this->content;
     }
 
-    public function parseTable($data,$start,$end)
+    public function parseTable($data, $start, $end, $staglen, $etaglen)
     {
-        $elementData = substr($data, 16,($end - 13));
-        $tmp = "<table>";
+        $table = new Table();
+        $elementData = substr($data, $staglen, ($end-$start) - $staglen);
 
-        //replace headers
-        $tmp .= "<tr>";
-        $headers = explode("{!header:", $elementData);
-        dump($headers);
-        foreach ($headers as $header)
+        foreach (explode("\r\n", $elementData) as $line)
         {
-            if (!empty(trim($header)))
+            foreach (explode(":",$line) as $key => $value)
             {
-                $tmp .= "<th>" . substr($header,0,strlen(trim($header)) - 2) . "</th>";
+                if ($key == "Header")
+                {
+                    $table->addHeader($value);
+                }
+                elseif ($key == "Row")
+                {
+                    $table->addRow(explode("|", $value));
+                }
             }
         }
-        $tmp .= "</tr>";
-        $tmp .= "</table>";
 
-        $this->content = substr_replace($this->content, $tmp, $start, ($end-$start) +5);
+        //replace content section with HTML output
     }
 }
