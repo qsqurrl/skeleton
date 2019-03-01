@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Service\Parser;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PageRepository")
@@ -67,7 +68,8 @@ class Page
 
     public function getContent(): ?string
     {
-        return $this->content;
+        $ps = new Parser($this->content);
+        return $ps->getContent();
     }
 
     public function setContent(?string $content): self
