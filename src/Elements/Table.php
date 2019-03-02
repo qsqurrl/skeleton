@@ -65,15 +65,15 @@ class Table
 
         if ($this->rows !== NULL)
         {
-            $html .= '<tr>';
             foreach ($this->rows as $row)
             {
-                foreach ($row as $item)
+                $html .= '<tr>';
+                foreach ($row as $element)
                 {
-                    $html .= '<td>'.$item.'</td>';
+                    $html .= "<td>".$element."</td>";
                 }
+                $html .= '</tr>';
             }
-            $html .= '</tr>';
         }
 
         $html .= $this->tableClose;

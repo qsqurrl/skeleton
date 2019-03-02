@@ -63,21 +63,25 @@ class Parser
         $table = new Table();
         $elementData = substr($data, $staglen, ($end-$start) - $staglen);
 
-        foreach (explode("\r\n", $elementData) as $line)
+        $top = explode("\r\n", $elementData);
+
+        foreach ($top as $line)
         {
-            foreach (explode(":",$line) as $key => $value)
+            $sec = explode(":", $line);
+            if ($sec[0] == "Header") {
+                $table->addHeader($sec[1]);
+            }
+            elseif ($sec[0] == "Row")
             {
-                if ($key == "Header")
-                {
-                    $table->addHeader($value);
-                }
-                elseif ($key == "Row")
-                {
-                    $table->addRow(explode("|", $value));
-                }
+                $rw = explode("|", $sec[1]);
+                $table->addRow($rw);
             }
         }
 
-        //replace content section with HTML output
+        //echo $table->getHTML();
+
+        //$this->content = substr_replace($this->content,'',$start,$end);
+        $this->content = substr($this->content,0, $start) . $table->getHTML() . substr($this->content,($end + $etaglen));
+        //$this->content = substr_replace($this->content, $table->getHTML(), $start, 0);
     }
 }
