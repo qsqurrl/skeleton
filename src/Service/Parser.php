@@ -9,6 +9,7 @@
 namespace App\Service;
 
 use App\Elements\Table;
+use App\Elements\InputItem;
 
 
 class Parser
@@ -26,20 +27,23 @@ class Parser
         $this->content = $data;
 
         $this->functions = array(
-                'table' => array($this, 'parseTable')
+                'table' => array($this, 'parseTable'),
+                'input' => array($this, 'parseInput')
         );
 
         $this->openElements = array(
-            'table' => '{!starttable!}'
+            'table' => '{!starttable!}',
+            'input' => '{!startinput!}'
         );
 
         $this->closeElements = array(
-            'table' => '{!endtable!}'
+            'table' => '{!endtable!}',
+            'input' => '{!endinput!}'
         );
 
         foreach ($this->openElements as $type => $element)
         {
-            if ($i = strpos($data, $element, $curPos))
+            if ($i = strpos($data, $element))
             {
                 if ($x = strpos($data, $this->closeElements[$type], $i))
                 {
@@ -48,6 +52,7 @@ class Parser
 
                     call_user_func($this->functions[$type], substr($data,$i, $x),$i, $x, $olen, $clen );
                     $curPos = $x;
+                    $data = $this->content;
                 }
             }
         }
@@ -56,6 +61,11 @@ class Parser
     public function getContent(): string
     {
         return $this->content;
+    }
+
+    private function replaceString($string, $replace, $start, $end)
+    {
+        return substr($string,0, $start) . $replace . substr($string,$end);
     }
 
     public function parseTable($data, $start, $end, $staglen, $etaglen)
@@ -77,11 +87,26 @@ class Parser
                 $table->addRow($rw);
             }
         }
+        $this->content = $this->replaceString($this->content, $table->getHTML(), $start, ($end + $etaglen));
+    }
 
-        //echo $table->getHTML();
+    public function parseInput($data, $start, $end, $staglen, $etaglen)
+    {
+        $itm = array();
+        $elementData = substr($data, $staglen, ($end-$start) - $staglen);
 
-        //$this->content = substr_replace($this->content,'',$start,$end);
-        $this->content = substr($this->content,0, $start) . $table->getHTML() . substr($this->content,($end + $etaglen));
-        //$this->content = substr_replace($this->content, $table->getHTML(), $start, 0);
+        $top = explode("\r\n", $elementData);
+        foreach ($top as $line)
+        {
+            $sec = explode(":", $line);
+            if (!empty(trim($sec[0])))
+            {
+                $itm[strtolower($sec[0])] = $sec[1];
+            }
+        }
+
+        $input = new InputItem($itm);
+
+        $this->content = $this->replaceString($this->content, $input->getHTML(), $start, ($end + $etaglen));
     }
 }

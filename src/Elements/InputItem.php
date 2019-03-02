@@ -22,7 +22,7 @@ class InputItem
      */
     public function __construct($data)
     {
-        switch ($data['type'])
+        switch (strtolower($data['type']))
         {
             case 'input':
                 $this->buildInputType($data);
