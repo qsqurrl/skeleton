@@ -37,6 +37,11 @@ class Page
      */
     private $page_title;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $on_navigation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +92,18 @@ class Page
     public function setPageTitle(string $page_title): self
     {
         $this->page_title = $page_title;
+
+        return $this;
+    }
+
+    public function getOnNavigation(): ?bool
+    {
+        return $this->on_navigation;
+    }
+
+    public function setOnNavigation(?bool $on_navigation): self
+    {
+        $this->on_navigation = $on_navigation;
 
         return $this;
     }
