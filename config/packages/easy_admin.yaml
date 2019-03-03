@@ -2,17 +2,24 @@ easy_admin:
     entities:
       Page:
         class: App\Entity\Page
+        form:
+          fields:
+            - route
+            - title
+            - page_title
+            - { property: 'content', type: 'fos_ckeditor'}
 
       User:
         class: App\Entity\User
+        controller: App\Controller\UserController
         form:
           fields:
             - username
-            - { property: 'roles', type: 'textbox' }
+            - { property: 'roles', type: 'App\Form\Type\JsonType' }
             - email
             - first_name
             - last_name
-            - { property: 'password', type: 'password' }
+            - password
 #        # List the entity class name you want to manage
 #        - App\Entity\Product
 #        - App\Entity\Category

@@ -60,7 +60,7 @@ class Parser
 
     public function getContent(): string
     {
-        return $this->content;
+        return ($this->content == NULL ? '' : $this->content);
     }
 
     private function replaceString($string, $replace, $start, $end)
