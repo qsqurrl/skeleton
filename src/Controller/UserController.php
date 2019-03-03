@@ -39,7 +39,7 @@ class UserController extends EasyAdminController
         if (!$user instanceof User) {
             return;
         }
-
+        
         $user->setPassword(
             $this->passwordEncoder->encodePassword($user, $user->getPassword())
         );

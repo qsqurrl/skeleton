@@ -1,0 +1,6 @@
+{
+    "editor.cursorStyle": "underline",
+    "editor.autoClosingBrackets": "always",
+    "breadcrumbs.symbolSortOrder": "type",
+    "workbench.iconTheme": "material-icon-theme"
+}

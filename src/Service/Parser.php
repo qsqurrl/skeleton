@@ -33,12 +33,14 @@ class Parser
 
         $this->openElements = array(
             'table' => '{!starttable!}',
-            'input' => '{!startinput!}'
+            'input' => '{!startinput!}',
+            'row' => '{!startrow!}'
         );
 
         $this->closeElements = array(
             'table' => '{!endtable!}',
-            'input' => '{!endinput!}'
+            'input' => '{!endinput!}',
+            'row' => '{!endrow!}'
         );
 
         foreach ($this->openElements as $type => $element)

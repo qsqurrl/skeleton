@@ -19,7 +19,7 @@ easy_admin:
             - email
             - first_name
             - last_name
-            - password
+            - {property: 'password', type: 'password' }
 #        # List the entity class name you want to manage
 #        - App\Entity\Product
 #        - App\Entity\Category

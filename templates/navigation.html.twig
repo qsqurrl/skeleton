@@ -6,7 +6,12 @@
             <li class="{{ app.request.get('route') == 'test' ? 'active' }}"><a href="{{ path('page_show',{'route' : 'test'}) }}">Test</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+        {% if is_granted("ROLE_USER") %}
             <li><a href="/"><span class="glyphicon glyphicon-user">&nbsp;</span>{{ app.user.username|upper }}</a></li>
+            {% if is_granted("ROLE_ADMIN") %}
+                <li><a href="/admin">Admin Panel</a></li>
+            {% endif %}
+        {% endif %}
         </ul>
     </div>
 </nav>
