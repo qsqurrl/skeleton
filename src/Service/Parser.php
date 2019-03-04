@@ -28,7 +28,8 @@ class Parser
 
         $this->functions = array(
                 'table' => array($this, 'parseTable'),
-                'input' => array($this, 'parseInput')
+                'input' => array($this, 'parseInput'),
+                'row' => array($this, 'parseRow')
         );
 
         $this->openElements = array(
@@ -116,5 +117,13 @@ class Parser
         $input = new InputItem($itm);
 
         $this->content = $this->replaceString($this->content, $input->getHTML(), $start, ($end + $etaglen));
+    }
+
+    public function parseRow($data, $start, $end, $staglen, $etaglen)
+    {
+        str_replace("{!startrow!}", "<div class='row'>", $data);
+        str_replace("{!endrow!}", "</div>", $data);
+
+        $this->content = $this->replaceString($this->content, $data, $start, ($end + $etaglen));
     }
 }

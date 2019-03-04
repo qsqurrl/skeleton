@@ -52,6 +52,8 @@ class Page
      */
     private $navigation_icon;
 
+    private $ps;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -83,12 +85,13 @@ class Page
 
     public function getContent(): ?string
     {
-        $ps = new Parser($this->content);
-        return $ps->getContent();
+       // $ps = new Parser($this->content);
+        return $this->ps->getContent();
     }
 
     public function setContent(?string $content): self
     {
+        $this->ps = new Parser($content);
         $this->content = $content;
 
         return $this;
