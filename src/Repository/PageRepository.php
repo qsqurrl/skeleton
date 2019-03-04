@@ -19,6 +19,16 @@ class PageRepository extends ServiceEntityRepository
         parent::__construct($registry, Page::class);
     }
 
+    public function findByNavigation()
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.on_navigation = 1')
+            ->orderBy('p.navigation_index', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Page[] Returns an array of Page objects
     //  */

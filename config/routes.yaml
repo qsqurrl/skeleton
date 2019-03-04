@@ -1,6 +1,6 @@
-home:
-    path: /
-    controller: App\Controller\HomeController::index
+#home:
+#    type: annotation
+#    controller: App\Controller\PageController
 
 page_show:
     type: annotation

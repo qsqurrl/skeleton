@@ -42,6 +42,16 @@ class Page
      */
     private $on_navigation;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $navigation_index;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $navigation_icon;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +114,30 @@ class Page
     public function setOnNavigation(?bool $on_navigation): self
     {
         $this->on_navigation = $on_navigation;
+
+        return $this;
+    }
+
+    public function getNavigationIndex(): ?int
+    {
+        return $this->navigation_index;
+    }
+
+    public function setNavigationIndex(int $navigation_index): self
+    {
+        $this->navigation_index = $navigation_index;
+
+        return $this;
+    }
+
+    public function getNavigationIcon(): ?string
+    {
+        return $this->navigation_icon;
+    }
+
+    public function setNavigationIcon(?string $navigation_icon): self
+    {
+        $this->navigation_icon = $navigation_icon;
 
         return $this;
     }
