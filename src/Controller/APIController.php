@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ApiController extends AbstractController
@@ -26,8 +27,12 @@ class ApiController extends AbstractController
      * @Route("/api/email", name="api_email)
      * @Method("POST")
      */
-     private function emailController()
+     private function emailController(Request $request)
      {
-        return new Response("email API");
+        $response = new Response($request->content());
+        $response->headers->set('Content-Type', 'application/json');
+        $response->setStatusCode(Response::HTTP_NOT_FOUND);
+
+        return $response;
      }
 }
