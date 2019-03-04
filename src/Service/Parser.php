@@ -70,12 +70,19 @@ class Parser
         return substr($string,0, $start) . $replace . substr($string,$end);
     }
 
-    public function parseTable($data, $start, $end, $staglen, $etaglen)
+    private function getAttributes($data, $start, $end, $staglen, $etaglen)
     {
-        $table = new Table();
         $elementData = substr($data, $staglen, ($end-$start) - $staglen);
 
         $top = explode("\r\n", $elementData);
+
+        return $top;
+    }
+
+    public function parseTable($data, $start, $end, $staglen, $etaglen)
+    {
+        $table = new Table();
+        $top = $this->getAttributes($data, $start, $end, $staglen, $etaglen);
 
         foreach ($top as $line)
         {
@@ -95,9 +102,8 @@ class Parser
     public function parseInput($data, $start, $end, $staglen, $etaglen)
     {
         $itm = array();
-        $elementData = substr($data, $staglen, ($end-$start) - $staglen);
-
-        $top = explode("\r\n", $elementData);
+        $top = $this->getAttributes($data, $start, $end, $staglen, $etaglen);
+        
         foreach ($top as $line)
         {
             $sec = explode(":", $line);
