@@ -85,7 +85,7 @@ class Page
 
     public function getContent(): ?string
     {
-       // $ps = new Parser($this->content);
+        $this->ps = new Parser($this->content);
         return $this->ps->getContent();
     }
 
